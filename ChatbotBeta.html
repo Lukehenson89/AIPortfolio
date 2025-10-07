@@ -6,8 +6,8 @@
   <title>Rule-Based Chatbot</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
+      font-family: Geneva, sans-serif;
+      background: #f9f9f9;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -119,7 +119,7 @@
         }
       }
 
-      return "Sorry, I don't understand that.";
+      return "Sorry, I don't understand that, Please try Again.";
     }
 
     function handleSend() {
@@ -142,8 +142,9 @@
 
     // ✅ Bot sends first message when page loads
     window.addEventListener('DOMContentLoaded', () => {
-      addMessage("Hello! I'm ChatBot. How can I assist you today?", 'bot');
+      addMessage("Hello! I'm LukeBot. I can answer any questions on Luke you might have?", 'bot');
     });
   </script>
 </body>
 </html>
+
