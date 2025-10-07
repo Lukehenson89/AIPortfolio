@@ -89,14 +89,15 @@
   </div>
 
   <script>
-    const responses = {
-      "hello": "Hi there! do you have a question about Luke?",
-      "hi": "Hello! do you have a question about Luke?",
-      "your name": "I'm a rule-based chatbot. You can call me LukeBot!",
-      "bye": "Goodbye! Have a great day!",
-      "how old": "Luke is currently 36 years old",
-      "help": "i can only answer questions about Luke'."
-    };
+    // ✅ Editable Question-Answer Database
+    const qaDatabase = [
+      { keywords: ["hello", "hi","hey"], answer: "Hello! What would you like to know about Luke?" },
+      { keywords: ["your name","what is your name","whats your name","what's your name"], answer: "I'm LukeBot, your virtual assistant." },
+      { keywords: ["how are you","you okay","u okay"], answer: "Not to bad, thanks for asking!" },
+      { keywords: ["how old is Luke","how old is he","his age], answer: "Luke is currently 36 years old" },
+      { keywords: ["help"], answer: "Sure! Ask me about anything you need help with." },
+      { keywords: ["bye", "goodbye","seeya"], answer: "Goodbye! Have a nice day!" }
+    ];
 
     const chatBox = document.getElementById('chat-box');
     const userInput = document.getElementById('user-input');
@@ -111,20 +112,22 @@
     }
 
     function getBotResponse(input) {
-      input = input.toLowerCase().trim();
+      const cleanedInput = input.toLowerCase().trim();
 
-      for (let keyword in responses) {
-        if (input.includes(keyword)) {
-          return responses[keyword];
+      for (let item of qaDatabase) {
+        for (let keyword of item.keywords) {
+          if (cleanedInput.includes(keyword)) {
+            return item.answer;
+          }
         }
       }
 
-      return "Sorry, I don't understand that, Please try again.";
+      return "Sorry, I don't understand that. Try asking something else.";
     }
 
     function handleSend() {
       const input = userInput.value;
-      if (input === '') return;
+      if (!input.trim()) return;
 
       addMessage(input, 'user');
       const response = getBotResponse(input);
@@ -140,13 +143,10 @@
       }
     });
 
-    // ✅ Bot sends first message when page loads
+    // ✅ Send welcome message on page load
     window.addEventListener('DOMContentLoaded', () => {
-      addMessage("Hello! I'm LukeBot. I can answer any questions about Luke?", 'bot');
+      addMessage("👋 Hello! I'm LukeBot. Im a work in Progress. Ask me anything about Luke.", 'bot');
     });
   </script>
 </body>
 </html>
-
-
-
