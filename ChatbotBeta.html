@@ -6,12 +6,13 @@
   <title>Rule-Based Chatbot</title>
   <style>
     body {
-      font-family: Geneva,Arial, sans-serif;
-      background: #f9f9f9;
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      margin: 0;
     }
 
     #chat-container {
@@ -33,16 +34,22 @@
 
     .message {
       margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 10px;
+      max-width: 80%;
+      word-wrap: break-word;
     }
 
     .user {
+      background-color: #d0ebff;
+      align-self: flex-end;
       text-align: right;
-      color: black;
     }
 
     .bot {
+      background-color: #e6ffe6;
+      align-self: flex-start;
       text-align: left;
-      color: Blue;
     }
 
     #input-container {
@@ -55,6 +62,7 @@
       padding: 10px;
       border: none;
       outline: none;
+      font-size: 16px;
     }
 
     #send-btn {
@@ -63,6 +71,7 @@
       background: #4CAF50;
       color: white;
       cursor: pointer;
+      font-size: 16px;
     }
 
     #send-btn:hover {
@@ -80,64 +89,61 @@
   </div>
 
   <script>
-  const responses = {
-    "hello": "Hi there! How can I help you?",
-    "hi": "Hello! How are you today?",
-    "how are you": "I'm just a bot, but I'm doing fine!",
-    "your name": "I'm a rule-based chatbot. You can call me ChatBot!",
-    "bye": "Goodbye! Have a great day!",
-    "help": "You can say things like 'hello', 'what is your name', or 'bye'."
-  };
+    const responses = {
+      "hello": "Hi there! How can I help you?",
+      "hi": "Hello! How are you today?",
+      "how are you": "I'm just a bot, but I'm doing fine!",
+      "your name": "I'm a rule-based chatbot. You can call me ChatBot!",
+      "bye": "Goodbye! Have a great day!",
+      "help": "You can say things like 'hello', 'what is your name', or 'bye'."
+    };
 
-  const chatBox = document.getElementById('chat-box');
-  const userInput = document.getElementById('user-input');
-  const sendBtn = document.getElementById('send-btn');
+    const chatBox = document.getElementById('chat-box');
+    const userInput = document.getElementById('user-input');
+    const sendBtn = document.getElementById('send-btn');
 
-  function addMessage(text, sender) {
-    const message = document.createElement('div');
-    message.className = `message ${sender}`;
-    message.innerText = text;
-    chatBox.appendChild(message);
-    chatBox.scrollTop = chatBox.scrollHeight;
-  }
+    function addMessage(text, sender) {
+      const message = document.createElement('div');
+      message.className = `message ${sender}`;
+      message.innerText = text;
+      chatBox.appendChild(message);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
 
-  function getBotResponse(input) {
-    input = input.toLowerCase().trim();
+    function getBotResponse(input) {
+      input = input.toLowerCase().trim();
 
-    // Loop through all keys and find the first partial match
-    for (let keyword in responses) {
-      if (input.includes(keyword)) {
-        return responses[keyword];
+      for (let keyword in responses) {
+        if (input.includes(keyword)) {
+          return responses[keyword];
+        }
       }
+
+      return "Sorry, I don't understand that.";
     }
 
-    return "Sorry, I don't understand that, Pleas try again.";
-  }
+    function handleSend() {
+      const input = userInput.value;
+      if (input === '') return;
 
-  function handleSend() {
-    const input = userInput.value;
-    if (input === '') return;
+      addMessage(input, 'user');
+      const response = getBotResponse(input);
+      setTimeout(() => addMessage(response, 'bot'), 500);
 
-    addMessage(input, 'user');
-    const response = getBotResponse(input);
-    setTimeout(() => addMessage(response, 'bot'), 500);
-
-    userInput.value = '';
-  }
-
-  sendBtn.addEventListener('click', handleSend);
-  userInput.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-      handleSend();
+      userInput.value = '';
     }
-  });
-    window.addEventListener('load', () => {
-  addMessage("Hello! I'm ChatBot. I can answer questions about Luke for you?", 'bot');
-});
 
-</script>
+    sendBtn.addEventListener('click', handleSend);
+    userInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        handleSend();
+      }
+    });
 
+    // ✅ Bot sends first message when page loads
+    window.addEventListener('DOMContentLoaded', () => {
+      addMessage("Hello! I'm ChatBot. How can I assist you today?", 'bot');
+    });
+  </script>
 </body>
 </html>
-
-
