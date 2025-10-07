@@ -95,6 +95,7 @@
       "how are you": "I'm just a bot, but I'm doing fine!",
       "your name": "I'm a rule-based chatbot. You can call me LukeBot!",
       "bye": "Goodbye! Have a great day!",
+      "How old": "Luke is currently 36 years old",
       "help": "i can only answer questions about Luke'."
     };
 
@@ -119,7 +120,7 @@
         }
       }
 
-      return "Sorry, I don't understand that.";
+      return "Sorry, I don't understand that, Please try again.";
     }
 
     function handleSend() {
@@ -142,8 +143,9 @@
 
     // ✅ Bot sends first message when page loads
     window.addEventListener('DOMContentLoaded', () => {
-      addMessage("Hello! I'm ChatBot. I can answer any questions about Luke?", 'bot');
+      addMessage("Hello! I'm LukeBot. I can answer any questions about Luke?", 'bot');
     });
   </script>
 </body>
 </html>
+
