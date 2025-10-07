@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rule-Based Chatbot</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    #chat-container {
+      background: white;
+      width: 400px;
+      height: 500px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    #chat-box {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .message {
+      margin-bottom: 10px;
+    }
+
+    .user {
+      text-align: right;
+      color: blue;
+    }
+
+    .bot {
+      text-align: left;
+      color: green;
+    }
+
+    #input-container {
+      display: flex;
+      border-top: 1px solid #ddd;
+    }
+
+    #user-input {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      outline: none;
+    }
+
+    #send-btn {
+      padding: 10px 20px;
+      border: none;
+      background: #4CAF50;
+      color: white;
+      cursor: pointer;
+    }
+
+    #send-btn:hover {
+      background: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div id="chat-container">
+    <div id="chat-box"></div>
+    <div id="input-container">
+      <input type="text" id="user-input" placeholder="Type a message..." />
+      <button id="send-btn">Send</button>
+    </div>
+  </div>
+
+  <script>
+  const responses = {
+    "hello": "Hi there! How can I help you?",
+    "hi": "Hello! How are you today?",
+    "how are you": "I'm just a bot, but I'm doing fine!",
+    "your name": "I'm a rule-based chatbot. You can call me ChatBot!",
+    "bye": "Goodbye! Have a great day!",
+    "help": "You can say things like 'hello', 'what is your name', or 'bye'."
+  };
+
+  const chatBox = document.getElementById('chat-box');
+  const userInput = document.getElementById('user-input');
+  const sendBtn = document.getElementById('send-btn');
+
+  function addMessage(text, sender) {
+    const message = document.createElement('div');
+    message.className = `message ${sender}`;
+    message.innerText = text;
+    chatBox.appendChild(message);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+
+  function getBotResponse(input) {
+    input = input.toLowerCase().trim();
+
+    // Loop through all keys and find the first partial match
+    for (let keyword in responses) {
+      if (input.includes(keyword)) {
+        return responses[keyword];
+      }
+    }
+
+    return "Sorry, I don't understand that.";
+  }
+
+  function handleSend() {
+    const input = userInput.value;
+    if (input === '') return;
+
+    addMessage(input, 'user');
+    const response = getBotResponse(input);
+    setTimeout(() => addMessage(response, 'bot'), 500);
+
+    userInput.value = '';
+  }
+
+  sendBtn.addEventListener('click', handleSend);
+  userInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      handleSend();
+    }
+  });
+</script>
+
+</body>
+</html>
