@@ -92,7 +92,7 @@
     // ✅ Editable Question-Answer Database
     const qaDatabase = [
       { keywords: ["hello", "hi","hey"], answer: "Hello! What would you like to know about Luke?" },
-      { keywords: ["your name","what is your name","whats your name","what's your name"], answer: "I'm LukeBot, your virtual assistant." },
+      { keywords: ["your name","what is your name","whats your name"], answer: "I'm LukeBot, your virtual assistant." },
       { keywords: ["how are you","you okay","u okay"], answer: "Not to bad, thanks for asking!" },
       { keywords: ["how old is Luke","how old is he","his age"], answer: "Luke is currently 36 years old" },
       { keywords: ["help"], answer: "Sure! Ask me about anything you need help with." },
@@ -145,9 +145,10 @@
 
     // ✅ Send welcome message on page load
     window.addEventListener('DOMContentLoaded', () => {
-      addMessage("👋 Hello! I'm LukeBot. Im a work in Progress. Ask me anything about Luke.", 'bot');
+      addMessage("👋 Hello! I am LukeBot. Im a work in Progress. Ask me anything about Luke.", 'bot');
     });
   </script>
 </body>
 </html>
+
 
