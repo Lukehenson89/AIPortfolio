@@ -10,9 +10,10 @@
     }
 
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       background: #f0f0f0;
-      padding: 20px;
+      margin: 0;
+      padding: 10px;
       display: flex;
       justify-content: center;
     }
@@ -23,12 +24,20 @@
       padding: 20px;
       width: 100%;
       max-width: 600px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
 
     h1, h2 {
       text-align: center;
       color: #4CAF50;
+      font-size: 1.5em;
+      margin: 10px 0;
+    }
+
+    p {
+      text-align: center;
+      font-size: 1em;
+      color: #555;
     }
 
     .ingredient-section {
@@ -39,33 +48,39 @@
       font-weight: bold;
       margin-bottom: 8px;
       color: #333;
+      font-size: 1.1em;
     }
 
     .ingredients {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 8px;
     }
 
     label {
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
       background: #f9f9f9;
-      padding: 8px 12px;
+      padding: 8px 10px;
       border-radius: 6px;
       cursor: pointer;
       border: 1px solid #ddd;
+      font-size: 0.95em;
+    }
+
+    input[type="checkbox"] {
+      transform: scale(1.2);
     }
 
     button {
       width: 100%;
-      padding: 12px;
+      padding: 14px;
       background-color: #4CAF50;
       color: white;
       border: none;
-      font-size: 16px;
-      border-radius: 5px;
+      font-size: 1.1em;
+      border-radius: 6px;
       cursor: pointer;
       margin-top: 10px;
     }
@@ -76,7 +91,7 @@
 
     .result {
       margin-top: 20px;
-      font-size: 16px;
+      font-size: 1em;
       background: #e8f5e9;
       padding: 15px;
       border-left: 4px solid #4CAF50;
@@ -85,8 +100,8 @@
 
     textarea, input[type="text"] {
       width: 100%;
-      padding: 10px;
-      font-size: 14px;
+      padding: 12px;
+      font-size: 1em;
       border: 1px solid #ccc;
       border-radius: 6px;
       margin-top: 10px;
@@ -97,7 +112,7 @@
     }
 
     li {
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .form-section {
@@ -106,6 +121,22 @@
 
     .search-box {
       margin: 15px 0;
+    }
+
+    @media (max-width: 480px) {
+      h1, h2 {
+        font-size: 1.3em;
+      }
+
+      button {
+        font-size: 1em;
+        padding: 12px;
+      }
+
+      label {
+        font-size: 0.9em;
+        padding: 6px 8px;
+      }
     }
   </style>
 </head>
@@ -153,36 +184,15 @@
     "Grains": ["Rice", "Pasta", "Bread"]
   };
 
-  // Initial recipe list
+  // Initial recipes
   let recipes = [
-    {
-      name: "Grilled Cheese Sandwich",
-      needs: ["Bread", "Cheese", "Butter"]
-    },
-    {
-      name: "Omelette",
-      needs: ["Eggs", "Milk", "Onion"]
-    },
-    {
-      name: "Chicken Stir Fry",
-      needs: ["Chicken", "Carrot", "Onion", "Garlic"]
-    },
-    {
-      name: "Tomato Pasta",
-      needs: ["Pasta", "Tomato", "Garlic"]
-    },
-    {
-      name: "Rice and Beans",
-      needs: ["Rice", "Beans"]
-    },
-    {
-      name: "Mashed Potatoes",
-      needs: ["Potato", "Butter", "Milk"]
-    },
-    {
-      name: "Spinach Salad",
-      needs: ["Spinach", "Tomato", "Onion"]
-    }
+    { name: "Grilled Cheese Sandwich", needs: ["Bread", "Cheese", "Butter"] },
+    { name: "Omelette", needs: ["Eggs", "Milk", "Onion"] },
+    { name: "Chicken Stir Fry", needs: ["Chicken", "Carrot", "Onion", "Garlic"] },
+    { name: "Tomato Pasta", needs: ["Pasta", "Tomato", "Garlic"] },
+    { name: "Rice and Beans", needs: ["Rice", "Beans"] },
+    { name: "Mashed Potatoes", needs: ["Potato", "Butter", "Milk"] },
+    { name: "Spinach Salad", needs: ["Spinach", "Tomato", "Onion"] }
   ];
 
   const ingredientSectionsDiv = document.getElementById("ingredientSections");
@@ -210,19 +220,15 @@
     ingredientSectionsDiv.appendChild(section);
   });
 
-  // Suggest recipes based on selected ingredients and optional search filter
+  // Suggest recipes based on selected ingredients and search input
   function suggestRecipe() {
     const selected = Array.from(document.querySelectorAll('input[type="checkbox"]:checked'))
                           .map(cb => cb.value);
-
     const searchTerm = document.getElementById("searchInput").value.trim().toLowerCase();
 
-    // Filtered recipes by name if search term is used
     let filteredRecipes = recipes;
     if (searchTerm.length > 0) {
-      filteredRecipes = recipes.filter(r =>
-        r.name.toLowerCase().includes(searchTerm)
-      );
+      filteredRecipes = recipes.filter(r => r.name.toLowerCase().includes(searchTerm));
     }
 
     const exactMatches = filteredRecipes.filter(recipe =>
@@ -235,12 +241,11 @@
         return {
           name: recipe.name,
           missing,
-          total: recipe.needs.length,
           match: missing.length > 0 && missing.length <= 2
         };
       })
       .filter(r => r.match)
-      .sort((a, b) => a.missing.length - b.missing.length); // fewest missing first
+      .sort((a, b) => a.missing.length - b.missing.length);
 
     const resultBox = document.getElementById("resultBox");
     resultBox.style.display = "block";
@@ -264,13 +269,13 @@
     }
 
     if (html === '') {
-      html = "❌ No matching recipes found. Try selecting more ingredients or adjust your search.";
+      html = "❌ No matching recipes found. Try selecting more ingredients or adjusting your search.";
     }
 
     resultBox.innerHTML = html;
   }
 
-  // Add new recipe from form
+  // Add new recipe via form
   function addNewRecipe() {
     const nameInput = document.getElementById("newRecipeName");
     const ingInput = document.getElementById("newRecipeIngredients");
@@ -279,23 +284,17 @@
     const ingredients = ingInput.value.split(',').map(i => i.trim()).filter(i => i);
 
     if (!name || ingredients.length === 0) {
-      alert("Please enter a valid recipe name and at least one ingredient.");
+      alert("Please enter a recipe name and at least one ingredient.");
       return;
     }
 
-    // Add to recipes array
-    recipes.push({
-      name: name,
-      needs: ingredients
-    });
+    recipes.push({ name: name, needs: ingredients });
 
-    // Clear form inputs
     nameInput.value = '';
     ingInput.value = '';
 
-    alert(`✅ "${name}" added! Now try suggesting recipes.`);
+    alert(`✅ "${name}" added!`);
 
-    // Optional: re-suggest after adding
     suggestRecipe();
   }
 </script>
