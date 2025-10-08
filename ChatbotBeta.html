@@ -1,158 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>Rule-Based Chatbot</title>
   <style>
     body {
-      font-family: Geneva, sans-serif;
+      font-family: Arial, sans-serif;
       background: #f9f9f9;
       display: flex;
       justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
+      padding-top: 50px;
     }
-
-    #chat-container {
-      background: white;
+    .chat-container {
       width: 400px;
-      height: 500px;
-      border-radius: 10px;
+      background: #fff;
+      border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      display: flex;
-      flex-direction: column;
       overflow: hidden;
     }
-
-    #chat-box {
-      flex: 1;
-      padding: 20px;
-      overflow-y: auto;
-    }
-
-    .message {
-      margin-bottom: 10px;
-      padding: 10px;
-      border-radius: 10px;
-      max-width: 80%;
-      word-wrap: break-word;
-    }
-
-    .user {
-      background-color: #d0ebff;
-      align-self: flex-end;
-      text-align: right;
-    }
-
-    .bot {
-      background-color: #e6ffe6;
-      align-self: flex-start;
-      text-align: left;
-    }
-
-    #input-container {
-      display: flex;
-      border-top: 1px solid #ddd;
-    }
-
-    #user-input {
-      flex: 1;
-      padding: 10px;
-      border: none;
-      outline: none;
-      font-size: 16px;
-    }
-
-    #send-btn {
-      padding: 10px 20px;
-      border: none;
-      background: #4CAF50;
+    .chat-header {
+      background: #4a90e2;
       color: white;
-      cursor: pointer;
-      font-size: 16px;
+      padding: 15px;
+      font-size: 18px;
     }
-
-    #send-btn:hover {
-      background: #45a049;
+    .chat-box {
+      height: 400px;
+      overflow-y: auto;
+      padding: 15px;
+      box-sizing: border-box;
+    }
+    .bot, .user {
+      margin-bottom: 10px;
+      max-width: 80%;
+    }
+    .bot {
+      background: #e1f5fe;
+      padding: 10px;
+      border-radius: 10px 10px 10px 0;
+    }
+    .user {
+      background: #dcedc8;
+      padding: 10px;
+      border-radius: 10px 10px 0 10px;
+      align-self: flex-end;
+      margin-left: auto;
+    }
+    .menu {
+      padding: 10px;
+      border-top: 1px solid #ccc;
+      background: #fafafa;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .menu button {
+      padding: 10px 15px;
+      border: none;
+      background: #4a90e2;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .menu button:hover {
+      background: #357abd;
     }
   </style>
 </head>
 <body>
-  <div id="chat-container">
-    <div id="chat-box"></div>
-    <div id="input-container">
-      <input type="text" id="user-input" placeholder="Type a message..." />
-      <button id="send-btn">Send</button>
-    </div>
-  </div>
 
-  <script>
-    // ✅ Editable Question-Answer Database
-    const qaDatabase = [
-      { keywords: ["hello", "hi","hey"], answer: "Hello! What would you like to know about Luke?" },
-      { keywords: ["your name","what is your name","whats your name"], answer: "I'm LukeBot, your virtual assistant." },
-      { keywords: ["email","what is his email"], answer: "Lukehenson89@gmail.com" },
-      { keywords: ["how are you","you okay","u okay"], answer: "Not to bad, thanks for asking!" },
-      { keywords: ["how old is luke","how old is he","how old"], answer: "Luke is currently 36 years old" },
-      { keywords: ["help"], answer: "Sure! Ask me about anything you need help with." },
-      { keywords: ["bye", "goodbye","seeya"], answer: "Goodbye! Have a nice day!" }
-    ];
+<div class="chat-container">
+  <div class="chat-header">Support Chatbot</div>
+  <div id="chat" class="chat-box"></div>
+  <div class="menu" id="menu"></div>
+</div>
 
-    const chatBox = document.getElementById('chat-box');
-    const userInput = document.getElementById('user-input');
-    const sendBtn = document.getElementById('send-btn');
+<script>
+  const chatBox = document.getElementById('chat');
+  const menu = document.getElementById('menu');
 
-    function addMessage(text, sender) {
-      const message = document.createElement('div');
-      message.className = `message ${sender}`;
-      message.innerText = text;
-      chatBox.appendChild(message);
-      chatBox.scrollTop = chatBox.scrollHeight;
+  // Nested menu data (can be extended easily)
+  const menuTree = {
+    "Drivers": {
+      "Windows": {
+        "Windows 10": "Download drivers for Windows 10 here: example.com/win10",
+        "Windows 11": "Download drivers for Windows 11 here: example.com/win11"
+      },
+      "Mac": {
+        "Intel Macs": "Intel Mac drivers: example.com/intelmac",
+        "Apple Silicon": "Apple Silicon drivers: example.com/m1"
+      },
+      "Linux": "Download Linux drivers here: example.com/linux"
+    },
+    "Support": {
+      "Installation": "Installation guide: example.com/install",
+      "Configuration": "Configuration steps: example.com/configure",
+      "Updates": "Update instructions: example.com/update"
+    },
+    "Contact": {
+      "Email": "Reach us at support@example.com",
+      "Phone": "Call us at 1-800-123-4567",
+      "Live Chat": "Chat with us live: example.com/chat"
     }
+  };
 
-    function getBotResponse(input) {
-      const cleanedInput = input.toLowerCase().trim();
+  let currentNode = menuTree; // Start at root
 
-      for (let item of qaDatabase) {
-        for (let keyword of item.keywords) {
-          if (cleanedInput.includes(keyword)) {
-            return item.answer;
-          }
-        }
-      }
+  // Start with greeting and main menu
+  window.onload = () => {
+    addBotMessage("Hello! How can I assist you today?");
+    showMenu(Object.keys(menuTree));
+  };
 
-      return "Sorry, I don't understand that. Try asking something else.";
-    }
+  function addBotMessage(message) {
+    const msgDiv = document.createElement('div');
+    msgDiv.className = 'bot';
+    msgDiv.textContent = message;
+    chatBox.appendChild(msgDiv);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
 
-    function handleSend() {
-      const input = userInput.value;
-      if (!input.trim()) return;
+  function addUserMessage(message) {
+    const msgDiv = document.createElement('div');
+    msgDiv.className = 'user';
+    msgDiv.textContent = message;
+    chatBox.appendChild(msgDiv);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
 
-      addMessage(input, 'user');
-      const response = getBotResponse(input);
-      setTimeout(() => addMessage(response, 'bot'), 500);
-
-      userInput.value = '';
-    }
-
-    sendBtn.addEventListener('click', handleSend);
-    userInput.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        handleSend();
-      }
+  function showMenu(options) {
+    menu.innerHTML = '';
+    options.forEach(option => {
+      const btn = document.createElement('button');
+      btn.textContent = option;
+      btn.onclick = () => handleUserSelection(option);
+      menu.appendChild(btn);
     });
+  }
 
-    // ✅ Send welcome message on page load
-    window.addEventListener('DOMContentLoaded', () => {
-      addMessage("👋 Hello! I am LukeBot. Im a work in Progress. Ask me anything about Luke.", 'bot');
-    });
-  </script>
+  function handleUserSelection(choice) {
+    addUserMessage(choice);
+
+    // Traverse the menu tree
+    if (typeof currentNode[choice] === 'string') {
+      // Final response
+      setTimeout(() => {
+        addBotMessage(currentNode[choice]);
+        currentNode = menuTree; // Reset to root
+        showMenu(Object.keys(menuTree));
+      }, 500);
+    } else if (typeof currentNode[choice] === 'object') {
+      // Go deeper in the menu tree
+      currentNode = currentNode[choice];
+      setTimeout(() => {
+        addBotMessage(`Please choose a ${choice.toLowerCase()} option:`);
+        showMenu(Object.keys(currentNode));
+      }, 500);
+    } else {
+      // Fallback
+      setTimeout(() => {
+        addBotMessage("Sorry, I didn't understand that.");
+        currentNode = menuTree;
+        showMenu(Object.keys(menuTree));
+      }, 500);
+    }
+  }
+</script>
+
 </body>
 </html>
-
-
-
-
-
