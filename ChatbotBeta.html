@@ -148,26 +148,26 @@
   const inputField = document.getElementById('userInput');
 
   const menuTree = {
-    "Drivers": {
-      "Windows": {
-        "Windows 10": "Download Windows 10 drivers: example.com/win10",
-        "Windows 11": "Download Windows 11 drivers: example.com/win11"
+     "Personal Data": {
+      "Contact Info": {
+        "Email Address": "Lukehenson89@gmail.com",
+        "LinkedIn Profile": "https://www.linkedin.com/in/luke-henson"
       },
-      "Mac": {
-        "Intel Macs": "Intel Mac drivers: example.com/intelmac",
-        "Apple Silicon": "Apple Silicon drivers: example.com/m1"
+      "Personal Info": {
+        "Age D.O.B": "Born 30/01/1989 Luke is currently 36 Years old",
+        "Marital Status": "Married"
       },
-      "Linux": "Linux drivers: example.com/linux"
+      "Loction": "Born in the UK currently a UAE resident based in Dubai"
     },
-    "Support": {
-      "Installation": "Installation help: example.com/install",
-      "Configuration": "Configuration guide: example.com/configure",
-      "Updates": "Update steps: example.com/update"
+    "UAE Experience": {
+      "Maximus Gulf": "3 Years and Data  &Reporting Manager",
+      "Serco Middle East": "3Mnth FTC as Digital Transformation Lead",
+      "Parisima ME": "1 Year as BI Analytics Lead"
     },
-    "Contact": {
-      "Email": "Email us at support@example.com",
-      "Phone": "Call us at 1-800-123-4567",
-      "Live Chat": "Start live chat: example.com/chat"
+    "Tech and Systems Knowledge": {
+      "Script/Coding": "SQL,VBA,DAX,HTML,PYTHON",
+      "Software": "MS Azure, PBI, OAI, VS, SSRS, SSMS, MS Studio",
+      "Other": "Team Ledership, ETL, Digital Transformation, Training, DBA"
     }
   };
 
@@ -175,7 +175,7 @@
   let historyStack = [];
 
   window.onload = () => {
-    addBotMessage("Hello! How can I assist you today?");
+    addBotMessage("Hello! Im LukeBot, what would you like to know about Luke?");
     showMenu(Object.keys(menuTree));
   };
 
@@ -271,3 +271,4 @@
 
 </body>
 </html>
+
