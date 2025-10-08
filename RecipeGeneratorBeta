@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Recipe Suggester</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: Arial, sans-serif;
       background: #f0f0f0;
@@ -18,20 +22,29 @@
       border-radius: 8px;
       padding: 20px;
       width: 100%;
-      max-width: 500px;
+      max-width: 600px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
 
-    h1 {
+    h1, h2 {
       text-align: center;
       color: #4CAF50;
+    }
+
+    .ingredient-section {
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #333;
     }
 
     .ingredients {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-bottom: 20px;
     }
 
     label {
@@ -54,6 +67,7 @@
       font-size: 16px;
       border-radius: 5px;
       cursor: pointer;
+      margin-top: 10px;
     }
 
     button:hover {
@@ -68,30 +82,79 @@
       border-left: 4px solid #4CAF50;
       border-radius: 4px;
     }
+
+    textarea, input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-top: 10px;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    .form-section {
+      margin-top: 30px;
+    }
+
+    .search-box {
+      margin: 15px 0;
+    }
   </style>
 </head>
 <body>
 
 <div class="app">
   <h1>Recipe Suggester</h1>
-  <p>Select ingredients you have:</p>
-  <div class="ingredients" id="ingredientList">
-    <!-- Ingredients checkboxes go here -->
+
+  <p>Select the ingredients you have:</p>
+
+  <!-- Ingredient Sections -->
+  <div id="ingredientSections"></div>
+
+  <!-- Search Filter -->
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="🔍 Filter recipes by name..." oninput="suggestRecipe()" />
   </div>
 
-  <button onclick="suggestRecipe()">Suggest Recipe</button>
+  <button onclick="suggestRecipe()">Suggest Recipes</button>
 
+  <!-- Recipe Suggestion Result -->
   <div class="result" id="resultBox" style="display:none;"></div>
+
+  <!-- Add New Recipe -->
+  <div class="form-section">
+    <h2>➕ Add a New Recipe</h2>
+    <input type="text" id="newRecipeName" placeholder="Recipe name..." />
+    <input type="text" id="newRecipeIngredients" placeholder="Ingredients (comma separated)..." />
+    <button onclick="addNewRecipe()">Add Recipe</button>
+  </div>
+
+  <!-- Saved Recipes Section -->
+  <div class="form-section">
+    <h2>📒 Your Saved Recipes</h2>
+    <textarea placeholder="Write or paste your favorite recipes here..." id="savedRecipes"></textarea>
+  </div>
 </div>
 
 <script>
-  const ingredients = [
-    "Eggs", "Milk", "Cheese", "Bread", "Tomato",
-    "Pasta", "Chicken", "Rice", "Beans", "Spinach",
-    "Potato", "Onion", "Garlic", "Butter", "Carrot"
-  ];
+  // Ingredients by category
+  const ingredientsByCategory = {
+    "Dairy": ["Milk", "Cheese", "Butter"],
+    "Vegetables": ["Tomato", "Carrot", "Onion", "Spinach", "Garlic", "Potato"],
+    "Proteins": ["Eggs", "Chicken", "Beans"],
+    "Grains": ["Rice", "Pasta", "Bread"]
+  };
 
-  const recipes = [
+  // Initial recipe list
+  let recipes = [
     {
       name: "Grilled Cheese Sandwich",
       needs: ["Bread", "Cheese", "Butter"]
@@ -122,33 +185,118 @@
     }
   ];
 
-  // Generate checkboxes
-  const ingredientList = document.getElementById("ingredientList");
-  ingredients.forEach(ing => {
-    const label = document.createElement("label");
-    label.innerHTML = `
-      <input type="checkbox" value="${ing}" />
-      ${ing}
-    `;
-    ingredientList.appendChild(label);
+  const ingredientSectionsDiv = document.getElementById("ingredientSections");
+
+  // Generate ingredient checkboxes grouped by category
+  Object.entries(ingredientsByCategory).forEach(([category, items]) => {
+    const section = document.createElement("div");
+    section.className = "ingredient-section";
+
+    const title = document.createElement("div");
+    title.className = "section-title";
+    title.textContent = category;
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "ingredients";
+
+    items.forEach(item => {
+      const label = document.createElement("label");
+      label.innerHTML = `<input type="checkbox" value="${item}"> ${item}`;
+      wrapper.appendChild(label);
+    });
+
+    section.appendChild(title);
+    section.appendChild(wrapper);
+    ingredientSectionsDiv.appendChild(section);
   });
 
+  // Suggest recipes based on selected ingredients and optional search filter
   function suggestRecipe() {
     const selected = Array.from(document.querySelectorAll('input[type="checkbox"]:checked'))
                           .map(cb => cb.value);
 
-    const matched = recipes.filter(recipe =>
+    const searchTerm = document.getElementById("searchInput").value.trim().toLowerCase();
+
+    // Filtered recipes by name if search term is used
+    let filteredRecipes = recipes;
+    if (searchTerm.length > 0) {
+      filteredRecipes = recipes.filter(r =>
+        r.name.toLowerCase().includes(searchTerm)
+      );
+    }
+
+    const exactMatches = filteredRecipes.filter(recipe =>
       recipe.needs.every(item => selected.includes(item))
     );
+
+    const closeMatches = filteredRecipes
+      .map(recipe => {
+        const missing = recipe.needs.filter(item => !selected.includes(item));
+        return {
+          name: recipe.name,
+          missing,
+          total: recipe.needs.length,
+          match: missing.length > 0 && missing.length <= 2
+        };
+      })
+      .filter(r => r.match)
+      .sort((a, b) => a.missing.length - b.missing.length); // fewest missing first
 
     const resultBox = document.getElementById("resultBox");
     resultBox.style.display = "block";
 
-    if (matched.length > 0) {
-      resultBox.innerHTML = `<strong>Suggested Recipe:</strong> ${matched[0].name}`;
-    } else {
-      resultBox.innerHTML = "Sorry, no matching recipe found. Try selecting more ingredients!";
+    let html = '';
+
+    if (exactMatches.length > 0) {
+      html += `<strong>✅ Recipes you can make now:</strong><ul>`;
+      exactMatches.forEach(r => {
+        html += `<li>${r.name}</li>`;
+      });
+      html += `</ul>`;
     }
+
+    if (closeMatches.length > 0) {
+      html += `<strong>🤏 Almost ready (1–2 ingredients missing):</strong><ul>`;
+      closeMatches.forEach(r => {
+        html += `<li>${r.name}<br><em>Missing:</em> ${r.missing.join(', ')}</li>`;
+      });
+      html += `</ul>`;
+    }
+
+    if (html === '') {
+      html = "❌ No matching recipes found. Try selecting more ingredients or adjust your search.";
+    }
+
+    resultBox.innerHTML = html;
+  }
+
+  // Add new recipe from form
+  function addNewRecipe() {
+    const nameInput = document.getElementById("newRecipeName");
+    const ingInput = document.getElementById("newRecipeIngredients");
+
+    const name = nameInput.value.trim();
+    const ingredients = ingInput.value.split(',').map(i => i.trim()).filter(i => i);
+
+    if (!name || ingredients.length === 0) {
+      alert("Please enter a valid recipe name and at least one ingredient.");
+      return;
+    }
+
+    // Add to recipes array
+    recipes.push({
+      name: name,
+      needs: ingredients
+    });
+
+    // Clear form inputs
+    nameInput.value = '';
+    ingInput.value = '';
+
+    alert(`✅ "${name}" added! Now try suggesting recipes.`);
+
+    // Optional: re-suggest after adding
+    suggestRecipe();
   }
 </script>
 
