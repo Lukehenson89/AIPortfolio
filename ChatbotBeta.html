@@ -2,67 +2,126 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Rule-Based Chatbot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mobile Menu Rule Text Chatbot</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
+      margin: 0;
       font-family: Geneva, sans-serif;
       background: #f9f9f9;
       display: flex;
       justify-content: center;
-      padding-top: 50px;
+      align-items: center;
+      min-height: 100vh;
     }
+
     .chat-container {
-      width: 400px;
+      width: 100%;
+      max-width: 420px;
+      height: 90vh;
+      display: flex;
+      flex-direction: column;
       background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
       overflow: hidden;
     }
+
     .chat-header {
       background: #4a90e2;
       color: white;
       padding: 15px;
       font-size: 18px;
+      text-align: center;
     }
+
     .chat-box {
-      height: 400px;
+      flex-grow: 1;
       overflow-y: auto;
       padding: 15px;
-      box-sizing: border-box;
     }
+
     .bot, .user {
       margin-bottom: 10px;
       max-width: 80%;
+      word-wrap: break-word;
     }
+
     .bot {
       background: #e1f5fe;
       padding: 10px;
       border-radius: 10px 10px 10px 0;
     }
+
     .user {
       background: #dcedc8;
       padding: 10px;
       border-radius: 10px 10px 0 10px;
-      align-self: flex-end;
       margin-left: auto;
     }
+
     .menu {
-      padding: 10px;
-      border-top: 1px solid #ccc;
-      background: #fafafa;
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
+      padding: 10px;
+      background: #fafafa;
+      border-top: 1px solid #ddd;
+      overflow-x: auto;
     }
+
     .menu button {
-      padding: 10px 15px;
-      border: none;
+      flex: 1 1 auto;
+      padding: 10px;
+      min-width: 30%;
       background: #4a90e2;
       color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .menu button:first-child {
+      background: #ccc;
+      color: #333;
+    }
+
+    .menu button:hover {
+      background: #357abd;
+    }
+
+    .input-container {
+      display: flex;
+      border-top: 1px solid #ccc;
+      background: #fafafa;
+      padding: 10px;
+    }
+
+    .input-container input {
+      flex-grow: 1;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .input-container button {
+      margin-left: 10px;
+      padding: 10px 15px;
+      font-size: 16px;
+      background: #4a90e2;
+      color: white;
+      border: none;
       border-radius: 5px;
       cursor: pointer;
     }
-    .menu button:hover {
+
+    .input-container button:hover {
       background: #357abd;
     }
   </style>
@@ -70,45 +129,53 @@
 <body>
 
 <div class="chat-container">
-  <div class="chat-header">Lukebot</div>
+  <div class="chat-header">Support Chatbot</div>
   <div id="chat" class="chat-box"></div>
+
+  <!-- Menu Buttons -->
   <div class="menu" id="menu"></div>
+
+  <!-- Text Input -->
+  <div class="input-container">
+    <input type="text" id="userInput" placeholder="Type your message..." />
+    <button onclick="handleTextInput()">Send</button>
+  </div>
 </div>
 
 <script>
   const chatBox = document.getElementById('chat');
   const menu = document.getElementById('menu');
+  const inputField = document.getElementById('userInput');
 
-  // Nested menu data (can be extended easily)
   const menuTree = {
-    "Personal Data": {
-      "Contact Info": {
-        "Email Address": "Lukehenson89@gmail.com",
-        "LinkedIn Profile": "https://www.linkedin.com/in/luke-henson"
+    "Drivers": {
+      "Windows": {
+        "Windows 10": "Download Windows 10 drivers: example.com/win10",
+        "Windows 11": "Download Windows 11 drivers: example.com/win11"
       },
-      "Personal Info": {
-        "Age D.O.B": "Born 30/01/1989 Luke is currently 36 Years old",
-        "Marital Status": "Married"
+      "Mac": {
+        "Intel Macs": "Intel Mac drivers: example.com/intelmac",
+        "Apple Silicon": "Apple Silicon drivers: example.com/m1"
       },
-      "Loction": "Born in the UK currently a UAE resident based in Dubai"
+      "Linux": "Linux drivers: example.com/linux"
     },
-    "UAE Experience": {
-      "Maximus Gulf": "3 Years and Data  &Reporting Manager",
-      "Serco Middle East": "3Mnth FTC as Digital Transformation Lead",
-      "Parisima ME": "1 Year as BI Analytics Lead"
+    "Support": {
+      "Installation": "Installation help: example.com/install",
+      "Configuration": "Configuration guide: example.com/configure",
+      "Updates": "Update steps: example.com/update"
     },
-    "Tech and Systems Knowledge": {
-      "Script/Coding": "SQL,VBA,DAX,HTML,PYTHON",
-      "Software": "MS Azure, PBI, OAI, VS, SSRS, SSMS, MS Studio",
-      "Other": "Team Ledership, ETL, Digital Transformation, Training, DBA"
+    "Contact": {
+      "Email": "Email us at support@example.com",
+      "Phone": "Call us at 1-800-123-4567",
+      "Live Chat": "Start live chat: example.com/chat"
     }
   };
 
-  let currentNode = menuTree; // Start at root
+  let currentNode = menuTree;
+  let historyStack = [];
 
-  // Start with greeting and main menu
   window.onload = () => {
-    addBotMessage("Hello! Im LukeBot, what would you like to know about Luke?");
+    addBotMessage("Hello! How can I assist you today?");
     showMenu(Object.keys(menuTree));
   };
 
@@ -130,6 +197,14 @@
 
   function showMenu(options) {
     menu.innerHTML = '';
+
+    if (historyStack.length > 0) {
+      const backBtn = document.createElement('button');
+      backBtn.textContent = '⬅ Back';
+      backBtn.onclick = goBack;
+      menu.appendChild(backBtn);
+    }
+
     options.forEach(option => {
       const btn = document.createElement('button');
       btn.textContent = option;
@@ -139,34 +214,60 @@
   }
 
   function handleUserSelection(choice) {
-    addUserMessage(choice);
+    processUserInput(choice);
+  }
 
-    // Traverse the menu tree
-    if (typeof currentNode[choice] === 'string') {
-      // Final response
-      setTimeout(() => {
-        addBotMessage(currentNode[choice]);
-        currentNode = menuTree; // Reset to root
-        showMenu(Object.keys(menuTree));
-      }, 500);
-    } else if (typeof currentNode[choice] === 'object') {
-      // Go deeper in the menu tree
-      currentNode = currentNode[choice];
-      setTimeout(() => {
-        addBotMessage(`Please choose a ${choice.toLowerCase()} option:`);
-        showMenu(Object.keys(currentNode));
-      }, 500);
+  function handleTextInput() {
+    const input = inputField.value.trim();
+    if (input !== '') {
+      inputField.value = '';
+      processUserInput(input);
+    }
+  }
+
+  function processUserInput(input) {
+    addUserMessage(input);
+
+    const inputLower = input.toLowerCase();
+    const options = Object.keys(currentNode);
+    const matchedKey = options.find(option => option.toLowerCase() === inputLower);
+
+    if (matchedKey) {
+      const next = currentNode[matchedKey];
+
+      if (typeof next === 'string') {
+        setTimeout(() => {
+          addBotMessage(next);
+          currentNode = menuTree;
+          historyStack = [];
+          showMenu(Object.keys(menuTree));
+        }, 500);
+      } else if (typeof next === 'object') {
+        historyStack.push(currentNode);
+        currentNode = next;
+        setTimeout(() => {
+          addBotMessage(`Please choose a ${matchedKey.toLowerCase()} option:`);
+          showMenu(Object.keys(currentNode));
+        }, 500);
+      }
     } else {
-      // Fallback
       setTimeout(() => {
-        addBotMessage("Sorry, I didn't understand that.");
-        currentNode = menuTree;
-        showMenu(Object.keys(menuTree));
+        addBotMessage("Sorry, I didn’t understand that. Please select a button or try again.");
       }, 500);
+    }
+  }
+
+  function goBack() {
+    if (historyStack.length > 0) {
+      currentNode = historyStack.pop();
+      addBotMessage("Going back...");
+      showMenu(Object.keys(currentNode));
+    } else {
+      currentNode = menuTree;
+      showMenu(Object.keys(menuTree));
     }
   }
 </script>
 
 </body>
 </html>
-
