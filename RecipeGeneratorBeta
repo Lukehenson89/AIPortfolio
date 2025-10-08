@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Recipe Suggester</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .app {
+      background: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #4CAF50;
+    }
+
+    .ingredients {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: #f9f9f9;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      border: 1px solid #ddd;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 16px;
+      background: #e8f5e9;
+      padding: 15px;
+      border-left: 4px solid #4CAF50;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="app">
+  <h1>Recipe Suggester</h1>
+  <p>Select ingredients you have:</p>
+  <div class="ingredients" id="ingredientList">
+    <!-- Ingredients checkboxes go here -->
+  </div>
+
+  <button onclick="suggestRecipe()">Suggest Recipe</button>
+
+  <div class="result" id="resultBox" style="display:none;"></div>
+</div>
+
+<script>
+  const ingredients = [
+    "Eggs", "Milk", "Cheese", "Bread", "Tomato",
+    "Pasta", "Chicken", "Rice", "Beans", "Spinach",
+    "Potato", "Onion", "Garlic", "Butter", "Carrot"
+  ];
+
+  const recipes = [
+    {
+      name: "Grilled Cheese Sandwich",
+      needs: ["Bread", "Cheese", "Butter"]
+    },
+    {
+      name: "Omelette",
+      needs: ["Eggs", "Milk", "Onion"]
+    },
+    {
+      name: "Chicken Stir Fry",
+      needs: ["Chicken", "Carrot", "Onion", "Garlic"]
+    },
+    {
+      name: "Tomato Pasta",
+      needs: ["Pasta", "Tomato", "Garlic"]
+    },
+    {
+      name: "Rice and Beans",
+      needs: ["Rice", "Beans"]
+    },
+    {
+      name: "Mashed Potatoes",
+      needs: ["Potato", "Butter", "Milk"]
+    },
+    {
+      name: "Spinach Salad",
+      needs: ["Spinach", "Tomato", "Onion"]
+    }
+  ];
+
+  // Generate checkboxes
+  const ingredientList = document.getElementById("ingredientList");
+  ingredients.forEach(ing => {
+    const label = document.createElement("label");
+    label.innerHTML = `
+      <input type="checkbox" value="${ing}" />
+      ${ing}
+    `;
+    ingredientList.appendChild(label);
+  });
+
+  function suggestRecipe() {
+    const selected = Array.from(document.querySelectorAll('input[type="checkbox"]:checked'))
+                          .map(cb => cb.value);
+
+    const matched = recipes.filter(recipe =>
+      recipe.needs.every(item => selected.includes(item))
+    );
+
+    const resultBox = document.getElementById("resultBox");
+    resultBox.style.display = "block";
+
+    if (matched.length > 0) {
+      resultBox.innerHTML = `<strong>Suggested Recipe:</strong> ${matched[0].name}`;
+    } else {
+      resultBox.innerHTML = "Sorry, no matching recipe found. Try selecting more ingredients!";
+    }
+  }
+</script>
+
+</body>
+</html>
