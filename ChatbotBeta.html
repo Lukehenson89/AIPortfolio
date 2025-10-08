@@ -5,7 +5,7 @@
   <title>Rule-Based Chatbot</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: Geneva, sans-serif;
       background: #f9f9f9;
       display: flex;
       justify-content: center;
@@ -70,7 +70,7 @@
 <body>
 
 <div class="chat-container">
-  <div class="chat-header">Support Chatbot</div>
+  <div class="chat-header">Lukebot</div>
   <div id="chat" class="chat-box"></div>
   <div class="menu" id="menu"></div>
 </div>
@@ -81,26 +81,26 @@
 
   // Nested menu data (can be extended easily)
   const menuTree = {
-    "Drivers": {
-      "Windows": {
-        "Windows 10": "Download drivers for Windows 10 here: example.com/win10",
-        "Windows 11": "Download drivers for Windows 11 here: example.com/win11"
+    "Personal Data": {
+      "Contact Info": {
+        "Email Address": "Lukehenson89@gmail.com",
+        "LinkedIn Profile": "https://www.linkedin.com/in/luke-henson"
       },
-      "Mac": {
-        "Intel Macs": "Intel Mac drivers: example.com/intelmac",
-        "Apple Silicon": "Apple Silicon drivers: example.com/m1"
+      "Personal Info": {
+        "Age D.O.B": "Born 30/01/1989 Luke is currently 36 Years old",
+        "Marital Status": "Married"
       },
-      "Linux": "Download Linux drivers here: example.com/linux"
+      "Loction": "Born in the UK currently a UAE resident based in Dubai"
     },
-    "Support": {
-      "Installation": "Installation guide: example.com/install",
-      "Configuration": "Configuration steps: example.com/configure",
-      "Updates": "Update instructions: example.com/update"
+    "UAE Experience": {
+      "Maximus Gulf": "3 Years and Data  &Reporting Manager",
+      "Serco Middle East": "3Mnth FTC as Digital Transformation Lead",
+      "Parisima ME": "1 Year as BI Analytics Lead"
     },
-    "Contact": {
-      "Email": "Reach us at support@example.com",
-      "Phone": "Call us at 1-800-123-4567",
-      "Live Chat": "Chat with us live: example.com/chat"
+    "Tech and Systems Knowledge": {
+      "Script/Coding": "SQL,VBA,DAX,HTML,PYTHON",
+      "Software": "MS Azure, PBI, OAI, VS, SSRS, SSMS, MS Studio",
+      "Other": "Team Ledership, ETL, Digital Transformation, Training, DBA"
     }
   };
 
@@ -108,7 +108,7 @@
 
   // Start with greeting and main menu
   window.onload = () => {
-    addBotMessage("Hello! How can I assist you today?");
+    addBotMessage("Hello! Im LukeBot, what would you like to know about Luke?");
     showMenu(Object.keys(menuTree));
   };
 
@@ -169,3 +169,4 @@
 
 </body>
 </html>
+
