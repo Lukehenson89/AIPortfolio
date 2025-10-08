@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Recipe Suggester</title>
+  <title>Toddler Recipe Suggester</title>
   <style>
     * {
       box-sizing: border-box;
     }
 
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f0f0f0;
+      font-family: 'Geneva', sans-serif;
+      background: #f9f9f9;
       margin: 0;
       padding: 10px;
       display: flex;
@@ -179,8 +179,10 @@
   // Ingredients by category
   const ingredientsByCategory = {
     "Dairy": ["Milk", "Cheese", "Butter"],
-    "Vegetables": ["Tomato", "Carrot", "Onion", "Spinach", "Garlic", "Potato"],
-    "Proteins": ["Eggs", "Chicken", "Beans"],
+    "Vegetables": ["Tomato", "Carrot", "Onion", "Spinach", "Garlic", "Potato","Cucumber","Runner Beans"],
+    "Fruits": ["Orange", "Banana", "Apple", "Grapes", "Blueberries"],
+    "Proteins": ["Eggs", "Chicken", "Beans","Sausage"],
+    "Freezer": ["Waffles", "Nuggets", "Pancakes","Chips"],
     "Grains": ["Rice", "Pasta", "Bread"]
   };
 
@@ -188,6 +190,7 @@
   let recipes = [
     { name: "Grilled Cheese Sandwich", needs: ["Bread", "Cheese", "Butter"] },
     { name: "Omelette", needs: ["Eggs", "Milk", "Onion"] },
+    { name: "Bangers and Mash", needs: ["Sausages", "Potato", "Carrot"] },
     { name: "Chicken Stir Fry", needs: ["Chicken", "Carrot", "Onion", "Garlic"] },
     { name: "Tomato Pasta", needs: ["Pasta", "Tomato", "Garlic"] },
     { name: "Rice and Beans", needs: ["Rice", "Beans"] },
