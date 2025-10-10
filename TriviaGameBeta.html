@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Portfolio Quiz App</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body { font-family: Arial, sans-serif; background: #eef2f7; padding: 20px; margin: 0; }
+  .quiz-container { max-width: 700px; margin: auto; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: opacity 0.5s ease; }
+  h2, h3 { text-align: center; margin-bottom: 10px; }
+  .question { font-weight: bold; margin-bottom: 15px; font-size: 1.2em; }
+  .question img { max-width: 100%; margin-top: 10px; border-radius: 6px; }
+  .options { margin-bottom: 15px; }
+  .options label { display: block; margin-bottom: 8px; cursor: pointer; padding: 5px 8px; border-radius: 5px; transition: background 0.3s; }
+  .options input { margin-right: 8px; }
+  .correct { background-color: #c8e6c9; }
+  .incorrect { background-color: #ffcdd2; }
+  #nextBtn, #restartBtn { padding: 10px 22px; font-size: 16px; cursor: pointer; margin-top: 10px; border-radius: 5px; border: none; background: #3498db; color: #fff; transition: background 0.3s; }
+  #nextBtn:hover, #restartBtn:hover { background: #2980b9; }
+  #scoreboard, #timer { font-size: 18px; text-align: center; margin-top: 10px; }
+  #timer { color: #d32f2f; }
+  .round-summary { margin-top: 15px; background: #e3f2fd; padding: 12px; border-radius: 6px; }
+  .progress-bar { height: 15px; background: #ddd; border-radius: 8px; overflow: hidden; margin-bottom: 15px; }
+  .progress { height: 100%; background: #3498db; width: 0%; transition: width 0.5s; }
+  @media(max-width: 500px) {
+    .quiz-container { padding: 15px; }
+    #nextBtn, #restartBtn { width: 100%; font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="quiz-container" id="quizContainer">
+  <h2>Portfolio Quiz Game</h2>
+  <div id="timer"></div>
+  <div class="progress-bar"><div class="progress" id="progress"></div></div>
+  <div id="quiz"></div>
+  <button id="nextBtn">Next</button>
+  <button id="restartBtn" style="display:none;">Restart</button>
+  <div id="scoreboard"></div>
+  <div id="roundSummary"></div>
+</div>
+
+<script>
+const quizData = [
+  { question: "Which flag belongs to France?", type: "multiple", options: ["France","Germany","Italy","Spain"], answer: "France", round: 1, img: "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg" },
+  { question: "2 + 2 = ?", type: "multiple", options: ["3","4","5","6"], answer: "4", round: 1 },
+  { question: "The Earth is flat.", type: "truefalse", answer: "False", round: 1 },
+  { question: "Who painted the Mona Lisa?", type: "short", answer: "Leonardo da Vinci", round: 2, img: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Mona_Lisa.jpg" },
+  { question: "3 * 3 = ?", type: "multiple", options: ["6","9","12","15"], answer: "9", round: 2 },
+  { question: "JavaScript is a programming language.", type: "truefalse", answer: "True", round: 2 }
+];
+
+let questions = quizData.sort(() => Math.random()-0.5);
+let current = 0;
+let score = 0;
+let timerInterval;
+const timePerQuestion = 15;
+let timeLeft = timePerQuestion;
+
+const quizEl = document.getElementById('quiz');
+const nextBtn = document.getElementById('nextBtn');
+const restartBtn = document.getElementById('restartBtn');
+const scoreboard = document.getElementById('scoreboard');
+const timerEl = document.getElementById('timer');
+const roundSummaryEl = document.getElementById('roundSummary');
+const quizContainer = document.getElementById('quizContainer');
+const progressEl = document.getElementById('progress');
+
+function startTimer() {
+  timeLeft = timePerQuestion;
+  timerEl.textContent = `Time Left: ${timeLeft}s`;
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    timerEl.textContent = `Time Left: ${timeLeft}s`;
+    if(timeLeft <= 0){
+      clearInterval(timerInterval);
+      checkAnswer(true);
+    }
+  }, 1000);
+}
+
+function fadeOutIn(callback){
+  quizContainer.style.opacity = 0;
+  setTimeout(() => { callback(); quizContainer.style.opacity = 1; }, 500);
+}
+
+function loadQuestion(){
+  clearInterval(timerInterval);
+  startTimer();
+  roundSummaryEl.innerHTML = '';
+  const q = questions[current];
+  let html = `<div class="question">Round ${q.round}: ${q.question}</div>`;
+  if(q.img) html += `<img src="${q.img}" alt="Question Image">`;
+  html += `<div class="options">`;
+  if(q.type==="multiple"){
+    q.options.forEach(opt => html += `<label><input type="radio" name="answer" value="${opt}"> ${opt}</label>`);
+  } else if(q.type==="truefalse"){
+    html += `<label><input type="radio" name="answer" value="True"> True</label>`;
+    html += `<label><input type="radio" name="answer" value="False"> False</label>`;
+  } else if(q.type==="short"){
+    html += `<input type="text" id="shortAnswer" placeholder="Type your answer here">`;
+  }
+  html += `</div>`;
+  quizEl.innerHTML = html;
+  scoreboard.innerHTML = `Score: ${score} / ${questions.length}`;
+  progressEl.style.width = `${(current/questions.length)*100}%`;
+}
+
+function animateScoreChange(oldScore,newScore){
+  let start = oldScore;
+  const diff = newScore-oldScore;
+  if(diff<=0) return;
+  const interval = setInterval(()=>{
+    start++;
+    scoreboard.innerHTML = `Score: ${start} / ${questions.length}`;
+    if(start >= newScore) clearInterval(interval);
+  }, 100);
+}
+
+function checkAnswer(forced=false){
+  clearInterval(timerInterval);
+  const q = questions[current];
+  let userAnswer = "";
+  if(q.type==="short") userAnswer = document.getElementById('shortAnswer')?.value.trim() || "";
+  else {
+    const checked = document.querySelector('input[name="answer"]:checked');
+    if(checked) userAnswer = checked.value;
+  }
+  const prevScore = score;
+  if(userAnswer.toLowerCase() === q.answer.toLowerCase()) score++;
+  animateScoreChange(prevScore,score);
+
+  if(!forced) highlightAnswer(userAnswer);
+}
+
+function highlightAnswer(selectedValue){
+  const labels = document.querySelectorAll('.options label');
+  labels.forEach(label=>{
+    const input = label.querySelector('input');
+    if(input){
+      if(input.value === questions[current].answer) label.classList.add('correct');
+      if(input.value === selectedValue && selectedValue !== questions[current].answer) label.classList.add('incorrect');
+    }
+  });
+}
+
+nextBtn.addEventListener('click', ()=>{
+  checkAnswer();
+  current++;
+  if(current<questions.length) fadeOutIn(loadQuestion);
+  else showFinalSummary();
+});
+
+function showFinalSummary(){
+  quizEl.innerHTML = `<h3>Quiz Finished!</h3>`;
+  timerEl.textContent='';
+  progressEl.style.width = '100%';
+  nextBtn.style.display = "none";
+  restartBtn.style.display = "inline-block";
+
+  const rounds = {};
+  questions.forEach(q=>rounds[q.round]=(rounds[q.round]||0)+1);
+
+  let summaryHTML = '<div class="round-summary"><h4>Round Summary:</h4>';
+  for(let r in rounds){
+    summaryHTML += `<p>Round ${r}: ??? / ${rounds[r]} correct</p>`; // Placeholder for detailed round count
+  }
+  summaryHTML += '</div>';
+  roundSummaryEl.innerHTML = summaryHTML;
+}
+
+restartBtn.addEventListener('click', () => {
+  questions = quizData.sort(() => Math.random()-0.5);
+  current = 0;
+  score = 0;
+  nextBtn.style.display = "inline-block";
+  restartBtn.style.display = "none";
+  fadeOutIn(loadQuestion);
+});
+
+// Start quiz
+fadeOutIn(loadQuestion);
+</script>
+
+</body>
+</html>
