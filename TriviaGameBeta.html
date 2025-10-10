@@ -43,12 +43,12 @@
 
 <script>
 const quizData = [
-  { question: "Which flag belongs to France?", type: "multiple", options: ["France","Germany","Italy","Spain"], answer: "France", round: 1, img: "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg" },
-  { question: "2 + 2 = ?", type: "multiple", options: ["3","4","5","6"], answer: "4", round: 1 },
-  { question: "The Earth is flat.", type: "truefalse", answer: "False", round: 1 },
-  { question: "Who painted the Mona Lisa?", type: "short", answer: "Leonardo da Vinci", round: 2, img: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Mona_Lisa.jpg" },
-  { question: "3 * 3 = ?", type: "multiple", options: ["6","9","12","15"], answer: "9", round: 2 },
-  { question: "JavaScript is a programming language.", type: "truefalse", answer: "True", round: 2 }
+//   { question: "Which flag belongs to France?", type: "multiple", options: ["France","Germany","Italy","Spain"], answer: "France", round: 1, img: "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg" },
+  { question: "What is Lukes Middle Name", type: "multiple", options: ["Gary","Dennis","Phil","Peter"], answer: "Peter", round: 1 },
+  { question: "Luke is 35 years old", type: "truefalse", answer: "False", round: 1 },
+  { question: "Who is Luke Married too", type: "short", answer: "Hannah", round: 1, },
+//   { question: "3 * 3 = ?", type: "multiple", options: ["6","9","12","15"], answer: "9", round: 2 },
+//   { question: "JavaScript is a programming language.", type: "truefalse", answer: "True", round: 2 }
 ];
 
 let questions = quizData.sort(() => Math.random()-0.5);
@@ -87,7 +87,7 @@ function fadeOutIn(callback){
 
 function loadQuestion(){
   clearInterval(timerInterval);
-  startTimer();
+//   startTimer();
   roundSummaryEl.innerHTML = '';
   const q = questions[current];
   let html = `<div class="question">Round ${q.round}: ${q.question}</div>`;
