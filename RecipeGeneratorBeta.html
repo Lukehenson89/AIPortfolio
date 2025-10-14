@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Meal Suggestions</title>
+  <title>Toddler Recipe Suggester</title>
   <style>
     * {
       box-sizing: border-box;
@@ -161,7 +161,7 @@
 <body>
 
 <div class="app">
-  <h1>Meal Suggestions</h1>
+  <h1>Recipe Suggester</h1>
 
   <p>Select the ingredients you have:</p>
 
@@ -175,10 +175,10 @@
 
   <button onclick="suggestRecipe()">Suggest Recipes</button>
 
-  <!-- Meal Suggestion Result -->
+  <!-- Recipe Suggestion Result -->
   <div class="result" id="resultBox" style="display:none;"></div>
 
-  <!-- Add New Meal -->
+  <!-- Add New Recipe -->
   <div class="form-section">
     <h2>➕ Add a New Recipe</h2>
     <input type="text" id="newRecipeName" placeholder="Recipe name..." />
@@ -186,7 +186,7 @@
     <button onclick="addNewRecipe()">Add Recipe</button>
   </div>
 
-  <!-- Saved Meals Section -->
+  <!-- Saved Recipes Section -->
   <div class="form-section">
     <h2>📒 Your Saved Recipes</h2>
     <textarea placeholder="Write or paste your favorite recipes here..." id="savedRecipes"></textarea>
@@ -197,23 +197,21 @@
   // Ingredients by category
   const ingredientsByCategory = {
     "Dairy": ["Milk", "Cheese", "Butter"],
-    "Vegetables": ["Tomato", "Carrot", "Onion", "Spinach", "Garlic", "Potato","Cucumber","Runner Beans"],
+    "Vegetables": ["Tomatos", "Carrots", "Potato","Cucumber","Runner Beans"],
     "Fruits": ["Orange", "Banana", "Apple", "Grapes", "Blueberries"],
-    "Proteins": ["Eggs", "Chicken", "Beans","Sausage"],
-    "Freezer": ["Waffles", "Nuggets", "Pancakes","Chips"],
-    "Grains": ["Rice", "Pasta", "Bread"]
-  };
+    "Proteins": ["Eggs", "Chicken","Pork Sausages","Chicken Sausages"],
+    "Freezer": ["Waffles", "Nuggets", "Pancakes","Chips","Fish Fingers"],
+    "Carbs": ["Rice", "Pasta", "Bread"],
+    "Other":["Tomato Puree", "Pesto","Pasta Sauce"]};
 
   // Initial recipes
   let recipes = [
-    { name: "Grilled Cheese Sandwich", needs: ["Bread", "Cheese", "Butter"] },
-    { name: "Omelette", needs: ["Eggs", "Milk", "Onion"] },
-    { name: "Bangers and Mash", needs: ["Sausage", "Potato", "Carrot"] },
-    { name: "Chicken Stir Fry", needs: ["Chicken", "Carrot", "Onion", "Garlic"] },
-    { name: "Tomato Pasta", needs: ["Pasta", "Tomato", "Garlic"] },
-    { name: "Rice and Beans", needs: ["Rice", "Beans"] },
-    { name: "Mashed Potatoes", needs: ["Potato", "Butter", "Milk"] },
-    { name: "Spinach Salad", needs: ["Spinach", "Tomato", "Onion"] }
+    { name: "Pesto Pasta", needs: ["Pasta", "Pesto", "Carrots","Runner Beans"] },
+    { name: "Eggy Bread", needs: ["Eggs", "Bread"] },
+    { name: "Bangers and Mash", needs: ["Pork Sausages", "Potato", "Carrot"] },
+    { name: "Sausage and Waffles", needs: ["Chicken Sausages", "Waffles", "Carrots", "Runner Beans"] },
+    { name: "Pasta Bake", needs: ["Pasta", "Pasta Sauce", "Carrots"] },
+    { name: "FishFingers or Nuggets", needs: ["Fish Fingers","Nuggets","Waffles","Chips","Runner Beans", "Carrots"]}
   ];
 
   const ingredientSectionsDiv = document.getElementById("ingredientSections");
