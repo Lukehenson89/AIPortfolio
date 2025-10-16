@@ -118,15 +118,63 @@ h2 {
   background: #0b4fa5;
 }
 
-/* Contact */
-.contact-list {
-  list-style: none;
-  max-width: 600px;
-  margin: 0 auto;
+.project-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
 }
 
-.contact-list li {
-  margin-bottom: 10px;
+/* Contact Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 60px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 5% auto;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 500px;
+}
+
+.closeBtn {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.closeBtn:hover,
+.closeBtn:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Lightbox Styles */
+.project-card .lightbox-btn {
+  display: block;
+  margin-top: 10px;
+  padding: 8px 16px;
+  background: #1a73e8;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.project-card .lightbox-btn:hover {
+  background: #0b4fa5;
 }
 
 /* Footer */
@@ -137,7 +185,7 @@ footer {
   margin-top: 40px;
 }
 
-/* Responsive */
+/* Responsive Design */
 @media (max-width: 768px) {
   .nav-links {
     flex-direction: column;
@@ -145,5 +193,17 @@ footer {
 
   .nav-links li {
     margin: 10px 0;
+  }
+
+  .skills-list {
+    padding-left: 10px;
+  }
+
+  .project-card {
+    padding: 15px;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr 1fr;
   }
 }
