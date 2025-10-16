@@ -5,7 +5,137 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Luke Henson | AI Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" /><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Luke Henson | AI Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Header / Hero -->
+  <header>
+    <div class="container header-container">
+      <h1>Luke Henson</h1>
+      <p>Data & BI Specialist | Senior Reporting Manager | AI & Machine Learning Enthusiast</p>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- About Section -->
+  <section id="about">
+    <div class="container">
+      <h2>About Me</h2>
+      <p>
+        I am a Senior Reporting Manager specializing in solving complex problems using BI.
+        I have over 15 years experience in BI and Data Reporting spanning many industries globally.
+        Using this medium to track and display progress working alongside multiple AI functions.
+        Building End to End solutions and UX dashboard deployment.
+      </p>
+      <h3>Page Explained</h3>
+      <p>
+        I am building this page and all links to track and show my learning and development in using AI from scratch.
+        I want to identify how OpenAI can be used to build tools and end-to-end processes that can greatly benefit small business owners.
+      </p>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills">
+    <div class="container">
+      <h2>My Skills</h2>
+      <ul class="skills-list">
+        <li><a href="https://github.com" target="_blank">HTML</a></li>
+        <li><a href="https://github.com" target="_blank">CSS</a></li>
+        <li><a href="https://github.com" target="_blank">JavaScript</a></li>
+        <li><a href="https://github.com" target="_blank">React</a></li>
+        <li><a href="https://github.com" target="_blank">Node.js</a></li>
+        <li><a href="https://github.com" target="_blank">Python</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects">
+    <div class="container">
+      <h2>AI Projects</h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <h3>Rule Based Chat Bot</h3>
+          <img src="project1.jpg" alt="Project 1" class="project-image" />
+          <p><strong>Tech Used:</strong> OpenAI / HTML / JS / Github</p>
+          <p>Creating a rule-based Chatbot for End user Assistance.</p>
+          <a href="project1.jpg" class="lightbox-btn" target="_blank">View Image</a>
+        </div>
+
+        <div class="project-card">
+          <h3>WebApp Meal Suggester</h3>
+          <img src="project2.jpg" alt="Project 2" class="project-image" />
+          <p><strong>Tech Used:</strong> OpenAI / HTML / JS / Github</p>
+          <p>An input-driven AI Recipe Suggestion tool for toddlers.</p>
+          <a href="project2.jpg" class="lightbox-btn" target="_blank">View Image</a>
+        </div>
+
+        <div class="project-card">
+          <h3>Trivia Game</h3>
+          <img src="project3.jpg" alt="Project 3" class="project-image" />
+          <p><strong>Tech Used:</strong> OpenAI / HTML / JS / Github</p>
+          <p>An Interactive Trivia Game.</p>
+          <a href="project3.jpg" class="lightbox-btn" target="_blank">View Image</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <div class="container">
+      <h2>Contact</h2>
+      <p>References and Full Resume Available upon request:</p>
+      <button id="contactBtn">Contact Me</button>
+    </div>
+  </section>
+
+  <!-- Modal -->
+  <div id="contactModal" class="modal">
+    <div class="modal-content">
+      <span class="closeBtn">&times;</span>
+      <h2>Contact Form</h2>
+      <form id="contactForm">
+        <label for="name">Your Name:</label>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="email">Your Email:</label>
+        <input type="email" id="email" name="email" required><br>
+
+        <label for="message">Your Message:</label><br>
+        <textarea id="message" name="message" rows="5" required></textarea><br>
+
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Luke Henson. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
 </head>
 <body>
   <!-- Header / Hero -->
