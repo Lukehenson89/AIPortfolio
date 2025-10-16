@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Luke's Ristorante | Modern Italian Dining</title>
+  <link rel="stylesheet" href="REstaurantWebCSS.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Georgia&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <h1>Luke's Ristorante</h1>
+      <p>Authentic Modern Italian Cuisine</p>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#reservation">Reservations</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" class="home">
+    <div class="container">
+      <h2>Benvenuti a Luke's</h2>
+      <p>Fresh, seasonal ingredients with a modern Italian twist. Reserve your table today.</p>
+    </div>
+  </section>
+
+  <!-- Menu Section -->
+  <section id="menu">
+    <div class="container">
+      <h2>Il Menù</h2>
+
+      <div class="menu-category">
+        <h3>Antipasti</h3>
+        <div class="menu-items">
+          <div class="menu-item">
+            <img src="images/bruschetta.jpg" alt="Bruschetta">
+            <div>
+              <h4>Bruschetta al Pomodoro</h4>
+              <p>Grilled bread with fresh tomato, garlic, and basil.</p>
+              <span>$7.50</span>
+            </div>
+          </div>
+          <div class="menu-item">
+            <img src="images/caprese.jpg" alt="Caprese Salad">
+            <div>
+              <h4>Insalata Caprese</h4>
+              <p>Fresh mozzarella, tomatoes, and basil drizzled with olive oil.</p>
+              <span>$9.00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-category">
+        <h3>Primi</h3>
+        <div class="menu-items">
+          <div class="menu-item">
+            <img src="images/carbonara.jpg" alt="Carbonara">
+            <div>
+              <h4>Spaghetti alla Carbonara</h4>
+              <p>Classic Roman pasta with egg, pancetta, and Parmesan.</p>
+              <span>$14.00</span>
+            </div>
+          </div>
+          <div class="menu-item">
+            <img src="images/gnocchi.jpg" alt="Gnocchi">
+            <div>
+              <h4>Gnocchi al Pesto</h4>
+              <p>Homemade potato gnocchi with Genovese basil pesto.</p>
+              <span>$13.50</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-category">
+        <h3>Dolci</h3>
+        <div class="menu-items">
+          <div class="menu-item">
+            <img src="images/tiramisu.jpg" alt="Tiramisu">
+            <div>
+              <h4>Tiramisù</h4>
+              <p>Layered dessert with coffee-soaked ladyfingers and mascarpone cream.</p>
+              <span>$6.50</span>
+            </div>
+          </div>
+          <div class="menu-item">
+            <img src="images/gelato.jpg" alt="Gelato">
+            <div>
+              <h4>Gelato Artigianale</h4>
+              <p>Choice of seasonal flavors, handmade daily.</p>
+              <span>$5.00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Reservation Form -->
+  <section id="reservation">
+    <div class="container">
+      <h2>Make a Reservation</h2>
+      <form id="reservation-form">
+        <input type="text" id="name" placeholder="Your Name" required>
+        <input type="date" id="date" required>
+        <input type="time" id="time" required>
+        <select id="party-size" required>
+          <option value="">Party Size</option>
+          <option value="2">2 People</option>
+          <option value="4">4 People</option>
+          <option value="6">6 People</option>
+          <option value="8">8 People</option>
+        </select>
+        <button type="submit">Book Now</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section id="gallery">
+    <div class="container">
+      <h2>Gallery</h2>
+      <div class="gallery">
+        <img src="images/bruschetta.jpg" alt="Bruschetta">
+        <img src="images/carbonara.jpg" alt="Carbonara">
+        <img src="images/tiramisu.jpg" alt="Tiramisu">
+        <img src="images/gnocchi.jpg" alt="Gnocchi">
+        <img src="images/gelato.jpg" alt="gelato">
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="container">
+      <h2>Contact Us</h2>
+      <p>Email: info@lukesristorante.com</p>
+      <p>Phone: +44 123 456 7890</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Luke's Ristorante. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="RestaurantWebJS.js"></script>
+</body>
+</html>
