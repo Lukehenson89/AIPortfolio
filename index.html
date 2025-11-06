@@ -1,156 +1,184 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Luke Henson | AI Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" /><!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Luke Henson | AI Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <title>Luke Henson | BI Specialist, Analyst & Software Support</title>
+  <link rel="stylesheet" href="New_Portfolio_CSS.css" />
+  <script defer src="New_Portfolio_JS.js"></script>
 </head>
 <body>
-  <!-- Header / Hero -->
   <header>
-    <div class="container header-container">
-      <h1>Luke Henson</h1>
-      <p>Data & BI Specialist | Senior Reporting Manager | AI & Machine Learning Enthusiast</p>
-      <nav>
-        <ul class="nav-links">
-          <li><a href="#about">About</a></li>
-          <li><a href="#skills">Skills</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
+    <h1>Luke Henson</h1>
+    <nav id="navbar">
+      <ul>
+        <li><a href="#home" class="nav-link active">Home</a></li>
+        <li><a href="#skills" class="nav-link">Skills</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#experience" class="nav-link">Experience</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="menu-toggle">☰</div>
   </header>
 
-  <!-- About Section -->
-  <section id="about">
-    <div class="container">
-      <h2>About Me</h2>
-      <p>
-        I am a Senior Reporting Manager specializing in solving complex problems using BI.
-        I have over 15 years experience in BI and Data Reporting spanning many industries globally.
-        Using this medium to track and display progress working alongside multiple AI functions.
-        Building End to End solutions and UX dashboard deployment.
-      </p>
-      <br>
-      <h3>This Portfolio explained...</h3>
-      <p>
-        My background and experience is in big data analysis and reporting. Using tools such as VBA,SQL and DAX.
-        This portolio is to track and show how i am using OpenAI to learn HTML and Java from scratch.
-        I will show the various outputs along there development and show the time taken to develop.
-        The purpose being to show the power and functionality of OAI to the average analyst.
-      </p>
+  <section id="home" class="hero">
+    <div class="content">
+      <h2>BI Specialist, Analyst & Software Support</h2>
+      <p>Driving Results through data driven decisions alongside software solutions.</p>
+      <a href="#projects" class="btn">View Projects</a>
     </div>
   </section>
 
-  <!-- Skills Section -->
   <section id="skills">
-    <div class="container">
-      <h2>Skills & Software explained</h2>
-      <ul class="My Scripts and Software skills">
-        <li><a href="https://en.wikipedia.org/wiki/HTML" target="_blank">HTML</a></li>
-        <li><a href="https://en.wikipedia.org/wiki/CSS" target="_blank">CSS</a></li>
-        <li><a href="https://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a></li>
-        <li><a href="https://en.wikipedia.org/wiki/Visual_Basic_for_Applications" target="_blank">VBA</a></li>
-        <li><a href="https://en.wikipedia.org/wiki/Python_(programming_language)" target="_blank">Python</a></li>
-        <li><a href="https://en.wikipedia.org/wiki/Microsoft_Power_BI" target="_blank">PBI</a></li>
-      </ul>
+    <h3>Skills & Tools</h3>
+    <div class="grid">
+      <div class="card"><h4>Business Intelligence</h4><p>OpenAI, Power BI, Tableau, SSRS, SQL, VBA, MS Access/Excel</p></div>
+      <div class="card"><h4>Software Support</h4><p>Incident Resolution, UAT, ITIL, Root Cause Analysis</p></div>
+      <div class="card"><h4>Data Management</h4><p>ETL, Data Warehousing, API Integration, CRM/ERP Management</p></div>
+      <div class="card"><h4>Front End UX</h4><p>HTML, Java, CSS, Web App Development</p></div>
+      <div class="card"><h4>Soft Skills</h4><p>Collaboration, Documentation, Process Optimization, Training, Management</p></div>
     </div>
   </section>
 
-  <!-- Projects Section -->
   <section id="projects">
-    <div class="container">
-      <h2>AI Projects</h2>
-      <div class="projects-grid">
-        <div class="project-card">
-          <h3>Rule Based Chat Bot</h3>
-          <p><strong>Tech Used:</strong> OpenAI / HTML / JS / Github</p>
-          <p><strong>Time Taken:</strong> 2 Hours</p>
-          <p>Creating a rule-based Chatbot for End user Assistance.</p>
-          <a href="ChatbotBeta.html" class="lightbox-btn" target="_blank">View</a>
-        </div>
+  <h3>Projects</h3>
 
-        <div class="project-card">
-          <h3>WebApp Meal Suggester</h3>
-          <p><strong>Tech Used:</strong> OpenAI / HTML / JS / Github</p>
-          <p><strong>Time Taken:</strong> 3 Hours</p>
-          <p>An input-driven AI Recipe Suggestion tool for toddlers.</p>
-          <a href="Toddler Recipe Suggester.html" class="lightbox-btn" target="_blank">View</a>
-        </div>
+  <!-- Business Intelligence Projects -->
+  <div class="skill-projects">
+    <h4>Business Intelligence</h4>
+    <div class="grid">
+      <div class="card">
+        <h5>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="18" height="18" fill="var(--primary)">
+            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+          </svg>
+          Power BI Reporting Suite - SQL Data Integration
+        </h5>
+        <p>Developed a comprehensive Power BI reporting suite fed from SQL databases to enable data-driven decisions.</p>
+        <a href="Project1Summary.html" target="_blank" rel="noopener noreferrer" class="btn">View Summary</a>
+        <!-- Add snapshot images here if desired -->
+      </div>
+      <!-- Add more BI projects here -->
+    </div>
+  </div>
 
-        <div class="project-card">
-          <h3>Trivia Game</h3>
-          <p><strong>Tech Used:</strong> OpenAI / HTML / JS / Github</p>
-          <p><strong>Time Taken:</strong> 4 Hours</p>
-          <p>An Interactive Trivia Game.Activity to edit input forms.</p>
-          <a href="TriviaGameBeta.html" class="lightbox-btn" target="_blank">View</a>
-        </div>
+  <!-- Software Support Projects -->
+  <div class="skill-projects">
+    <h4>Software Support</h4>
+    <div class="grid">
+      <div class="card">
+        <h5>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="18" height="18" fill="var(--primary)">
+            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+          </svg>
+          Incident Resolution & UAT Management
+        </h5>
+        <p>Led the team responsible for UAT and Incident Resolution on Oracle Fusion SCM and DPM system rollout.</p>
+      <a href="Project2Summary.html" target="_blank" rel="noopener noreferrer" class="btn">View Summary</a>
+      </div>
+      <!-- More software support projects -->
+    </div>
+  </div>
 
-         <div class="project-card">
-          <h3>Restaurant Website</h3>
-          <p><strong>Tech Used:</strong> OpenAI / HTML / JS / Github</p>
-          <p><strong>Time Taken:</strong> 2 Hours</p>
-          <p>A Demo Website for a non existent restaurant</p>
-          <a href="RestaurantWebIndex.html" class="lightbox-btn" target="_blank">View</a>
-        </div>
+  <!-- Data Management Projects -->
+  <div class="skill-projects">
+    <h4>Data Management</h4>
+    <div class="grid">
+      <div class="card">
+        <h5>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="18" height="18" fill="var(--primary)">
+            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+          </svg>
+          ETL and API Integration Projects
+        </h5>
+        <p>Designed and managed ETL workflows and API integrations to streamline the system change from SAP to Oracle.</p>
+      </div>
+    </div>
+  </div>
 
-        
+  <!-- Front End UX Projects -->
+  <div class="skill-projects">
+    <h4>Front End UX</h4>
+    <div class="grid">
+      <div class="card">
+        <h5>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="18" height="18" fill="var(--primary)">
+            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+          </svg>
+          Web App Development with HTML, Java & CSS
+        </h5>
+        <p>Developed numberous front end sites and Web Apps including a restaurant website and rule based chatbot.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Soft Skills / Other Projects -->
+  <div class="skill-projects">
+    <h4>Soft Skills & Management</h4>
+    <div class="grid">
+      <div class="card">
+        <h5>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="18" height="18" fill="var(--primary)">
+            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+          </svg>
+          Collaboration, Documentation & Training
+        </h5>
+        <p>Leading BI Teams i have provided training on both system and BI reporting tools to improve processes and adoption.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <section id="experience">
+    <h3>Experience</h3>
+    <div class="grid">
+      <div class="card">
+        <h4>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+    </svg>
+            Data and Reporting Manager – Maximus Gulf</h4>
+        <p>Led the Data Analytics Team for Middle East, Europe and Asia. Responsible for design, build and maintenance of all BI.</p>
+      </div>
+    <div class="card">
+        <h4>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+    </svg>
+            Digital Transformation Analyst – Secro Middle East</h4>
+        <p>Led the Digital Transformation CRM end ERP System Project. Heavy focus on ETL, Data Audits and UAT.</p>
+        </div>
+    <div class="card">
+        <h4>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+    </svg>
+            BI Analyst – Parisima EMEA</h4>
+        <p>Design,Built & Maintained all company BI and Reporting. Built multiple ATS and recruitment tools and maintained the datastore.</p>
+
       </div>
     </div>
   </section>
 
-  <!-- Contact Section -->
+
   <section id="contact">
-    <div class="container">
-      <h2>Contact</h2>
+      <div class="card">
+      <h3>Contact Me</h3>
       <p>References and Full Resume Available upon request:</p>
-      <ul class="contact-list">
-        <li>Email: <a href="mailto:lukehenson89@gmail.com">lukehenson89@gmail.com</a></li>
-        <li>LinkedIn: <a href="https://linkedin.com/in/luke-henson" target="_blank">/Luke Henson</a></li>
-      </ul>
+<p>Email: <a href="mailto:lukehenson89@gmail.com">lukehenson89@gmail.com</a></p>
+<p>LinkedIn: <a href="https://linkedin.com/in/luke-henson">Luke Henson</a></p>
+
+
+
+
     </div>
   </section>
 
-  <!-- Modal -->
-  <div id="contactModal" class="modal">
-    <div class="modal-content">
-      <span class="closeBtn">&times;</span>
-      <h2>Contact Form</h2>
-      <form id="contactForm">
-        <label for="name">Your Name:</label>
-        <input type="text" id="name" name="name" required><br>
 
-        <label for="email">Your Email:</label>
-        <input type="email" id="email" name="email" required><br>
-
-        <label for="message">Your Message:</label><br>
-        <textarea id="message" name="message" rows="5" required></textarea><br>
-
-        <button type="submit">Send Message</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- Footer -->
   <footer>
-    <div class="container">
-      <p>&copy; 2025 Luke Henson. All rights reserved.</p>
-    </div>
+    <p>© 2025 Luke Henson | Portfolio</p>
   </footer>
-
-  <script src="script.js"></script>
 </body>
 </html>
-
-
-
