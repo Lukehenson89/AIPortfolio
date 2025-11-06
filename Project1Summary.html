@@ -12,6 +12,7 @@
     --text: #334155;
     --white: #fff;
   }
+
   body {
     font-family: 'Inter', sans-serif;
     background: var(--bg);
@@ -22,22 +23,27 @@
     margin-left: auto;
     margin-right: auto;
   }
+
   header {
     text-align: center;
     margin-bottom: 2rem;
   }
+
   header h1 {
     font-size: 2rem;
     color: var(--primary);
     margin-bottom: 0.3rem;
   }
+
   header p {
     font-size: 1rem;
     color: #64748b;
   }
+
   section {
     margin-bottom: 2rem;
   }
+
   section h2 {
     font-size: 1.4rem;
     color: var(--secondary);
@@ -45,36 +51,96 @@
     border-left: 4px solid var(--primary);
     padding-left: 0.5rem;
   }
+
   ul {
     list-style: inside disc;
     color: #475569;
     line-height: 1.6;
   }
-  .snapshots {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
+
+  /* --- View Sample Button and Preview --- */
+  .view-sample {
+    position: relative;
+    display: inline-block;
+    margin: 1rem 0;
   }
-  .snapshot {
-    flex: 1 1 280px;
-    max-width: 280px;
+
+  .view-btn {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    background: var(--primary);
+    color: var(--white);
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.3s;
+  }
+
+  .view-btn:hover {
+    background: #1559c1;
+  }
+
+  /* --- Hover preview image --- */
+  .view-sample img.preview {
+    display: none;
+    position: absolute;
+    top: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 320px;
     border-radius: 8px;
-    box-shadow:
-      0 4px 10px rgba(0, 0, 0, 0.12);
-    overflow: hidden;
+    border: 2px solid #e2e8f0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     background: var(--white);
+    z-index: 10;
   }
-  .snapshot img {
-    width: 100%;
+
+  .view-sample:hover img.preview {
     display: block;
+    animation: fadeIn 0.3s ease;
   }
-  .snapshot figcaption {
-    padding: 0.6rem 0.8rem;
-    font-size: 0.9rem;
-    color: #64748b;
-    text-align: center;
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
   }
+
+  /* --- Fullscreen Lightbox --- */
+  .lightbox {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255,255,255,0.3);
+  }
+
+  /* Close button */
+  .lightbox:target {
+    display: flex;
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 2%;
+    right: 3%;
+    font-size: 2rem;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  /* --- Back to Portfolio --- */
   .btn-back {
     display: inline-block;
     margin-top: 1rem;
@@ -86,9 +152,11 @@
     font-weight: 600;
     transition: background 0.3s;
   }
+
   .btn-back:hover {
     background: #1559c1;
   }
+
   footer {
     text-align: center;
     font-size: 0.85rem;
@@ -107,21 +175,33 @@
 <section>
   <h2>Project Overview</h2>
   <p>
-    Training and People Placement - Multiple Locations/Contracts
+    Training and People Placement - Multiple Locations/Contracts.
     Designed and developed an end-to-end reporting suite powered by Power BI, utilizing SQL Server as the primary data warehouse.
     This provided all level/department reporting from the CRM system - Ops/Marketing/BD/HR/Financial.
-    Creating a complete interactive reporting suite of interactive dashboards catered to each departments specs.
+    Creating a complete interactive reporting suite of dashboards catered to each department’s needs.
   </p>
+
+  <!-- ✅ View Sample Button + Hover Preview + Clickable Lightbox -->
+  <div class="view-sample">
+    <a href="#dashboard-lightbox" class="view-btn">👁️ View Sample</a>
+    <img src="images/powerbi_dashboard_preview.jpg" alt="Power BI Dashboard Preview" class="preview">
+  </div>
 </section>
+
+<!-- 🔍 Lightbox for Fullscreen Image -->
+<div id="dashboard-lightbox" class="lightbox">
+  <a href="#" class="lightbox-close" aria-label="Close">&times;</a>
+  <img src="images/powerbi_dashboard_full.jpg" alt="Full Power BI Dashboard Screenshot">
+</div>
 
 <section>
   <h2>Key Responsibilities</h2>
   <ul>
     <li>Built and optimized SQL queries and stored procedures to feed reliable datasets into Power BI models.</li>
     <li>Designed dynamic, interactive dashboards displaying KPIs, trends, and operational metrics.</li>
-    <li>For Customers without the capability of PBI SSRS Schedules and Reports were built.</li>
-    <li>Collaborated with business stakeholders to refine data visualization requirements and user experience.</li>
-  <li>Trained all end users on how to the use, schedule and work with all output reports/dashboards.</li>
+    <li>Delivered SSRS reports for clients without Power BI Service access.</li>
+    <li>Collaborated with stakeholders to refine visualization requirements and UX design.</li>
+    <li>Trained users on report scheduling, dashboard navigation, and data-driven decision making.</li>
   </ul>
 </section>
 
@@ -129,10 +209,10 @@
   <h2>Technologies Used</h2>
   <ul>
     <li>Power BI Desktop & Service</li>
-    <li>Microsoft SQL Server (T-SQL) and Mngmt Studio (SSMS)</li>
+    <li>Microsoft SQL Server (T-SQL) and Management Studio (SSMS)</li>
     <li>DAX for data modeling and calculations</li>
-    <li>Microsoft Sql Server Reporting Services (SSRS)</li>
-    <li>Power Query for data transformation</li>
+    <li>SQL Server Reporting Services (SSRS)</li>
+    <li>Power Query for ETL and data transformation</li>
   </ul>
 </section>
 
@@ -141,8 +221,8 @@
   <ul>
     <li>Reduced reporting latency by 90%, enabling near real-time data access.</li>
     <li>Empowered leadership with self-service dashboards, cutting report requests by 70%.</li>
-    <li>Reducing stand alone, self built reports and adhoc requests by 90%</li>
-    <li>Forecasting models improved training output and financial estimations</li>
+    <li>Reduced standalone and ad-hoc reports by 90% through centralization.</li>
+    <li>Enhanced forecasting accuracy for training outputs and financial projections.</li>
     <li>Improved data accuracy and consistency across business units.</li>
   </ul>
 </section>
@@ -155,8 +235,3 @@
 
 </body>
 </html>
-
-
-
-
-
