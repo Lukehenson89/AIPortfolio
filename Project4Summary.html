@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Web App Development with HTML, Java & CSS</title>
+<style>
+  :root {
+    --primary: #1a73e8;
+    --secondary: #0f172a;
+    --bg: #f9fafb;
+    --text: #334155;
+    --white: #fff;
+  }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+    padding: 2rem 1rem;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  header h1 {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 0.3rem;
+  }
+  header p {
+    font-size: 1rem;
+    color: #64748b;
+  }
+  section {
+    margin-bottom: 2rem;
+  }
+  section h2 {
+    font-size: 1.4rem;
+    color: var(--secondary);
+    margin-bottom: 0.5rem;
+    border-left: 4px solid var(--primary);
+    padding-left: 0.5rem;
+  }
+  ul {
+    list-style: inside disc;
+    color: #475569;
+    line-height: 1.6;
+  }
+
+  .btn-back {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.6rem 1.2rem;
+    background: var(--primary);
+    color: var(--white);
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.3s;
+  }
+  .btn-back:hover {
+    background: #1559c1;
+  }
+
+  /* Hover Preview + Lightbox */
+  .view-sample {
+    position: relative;
+    display: inline-block;
+    margin-top: 1rem;
+  }
+  .view-btn {
+    padding: 0.5rem 1rem;
+    background: var(--primary);
+    color: var(--white);
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .view-btn:hover {
+    background: #1559c1;
+  }
+  .view-sample .preview {
+    display: none;
+    position: absolute;
+    top: -220px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    max-width: 90vw;
+    border: 2px solid var(--primary);
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    z-index: 10;
+  }
+  .view-sample:hover .preview {
+    display: block;
+  }
+  .lightbox {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    padding-top: 60px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.9);
+  }
+  .lightbox img {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 80%;
+  }
+  .lightbox:target {
+    display: block;
+  }
+  .lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  footer {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #94a3b8;
+    margin-top: 3rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Web App Development</h1>
+  <p>Front-End Applications using HTML, Java & CSS</p>
+</header>
+
+<section>
+  <h2>Project Overview</h2>
+  <p>
+    Designed and developed multiple interactive web applications and static sites using HTML, Java, and CSS.  
+    Projects included a fully responsive restaurant website, an interactive trivia game, and a rule-based chatbot for user assistance.  
+    Focused on delivering clean, user-friendly interfaces and demonstrating front-end logic integration.
+  </p>
+</section>
+
+<section>
+  <h2>Key Responsibilities</h2>
+  <ul>
+    <li>Developed responsive front-end interfaces using HTML5, CSS3, and JavaScript (DOM manipulation and API calls).</li>
+    <li>Built a restaurant demo website showcasing dynamic menu rendering and order simulation logic.</li>
+    <li>Created a rule-based chatbot to simulate user support and guided responses.</li>
+    <li>Ensured accessibility and cross-browser compatibility across multiple devices.</li>
+    <li>Used GitHub Pages for deployment and version control.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Technologies Used</h2>
+  <ul>
+    <li>HTML5, CSS3, and JavaScript (ES6)</li>
+    <li>OpenAI API (for chatbot enhancement)</li>
+    <li>GitHub Pages for hosting and versioning</li>
+    <li>VS Code and Chrome DevTools for debugging and optimization</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Impact & Results</h2>
+  <ul>
+    <li>Developed functional, user-friendly web apps from scratch using only OpenAI guidance.</li>
+    <li>Improved front-end skills and learned responsive design principles hands-on.</li>
+    <li>Demonstrated the effectiveness of AI-assisted learning and project development.</li>
+  </ul>
+</section>
+
+<a href="https://lukehenson89.github.io/Portfolio/" class="btn-back" aria-label="Back to Portfolio">← Back to Portfolio</a>
+
+<footer>
+  &copy; 2025 Luke Henson. All rights reserved.
+</footer>
+
+</body>
+</html>
